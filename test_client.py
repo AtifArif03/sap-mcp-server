@@ -31,7 +31,7 @@ async def main():
     print(json.dumps(result, indent=2))
 
     print("\n" + "=" * 60)
-    print("TEST 4: Get employee time records")
+    print("TEST 4: Get PTO / time-off records")
     print("=" * 60)
     result = await get_employee_time()
     print(json.dumps(result, indent=2))

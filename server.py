@@ -38,6 +38,8 @@ async def list_tools() -> list[Tool]:
             name="get_employee_profile",
             description=(
                 "Get an employee's profile data from SAP SuccessFactors. "
+                "Use this when asked about employee details, org structure, org chart, who someone reports to, "
+                "compensation band, job title, role, or user information. "
                 "Returns name, email, role, and creation date. "
                 "If no UserID is provided, returns all employees."
             ),
@@ -69,17 +71,18 @@ async def list_tools() -> list[Tool]:
             },
         ),
         Tool(
-            name="get_employee_time_records",
+            name="get_pto_balance",
             description=(
-                "Get employee time/attendance records from SAP SuccessFactors. "
-                "Returns hours worked, start/end times, and break minutes."
+                "Get an employee's PTO balance, vacation days, and time-off records from SAP SuccessFactors. "
+                "Use this when asked about PTO, leave balance, vacation days, time off, or absence. "
+                "Returns hours worked, PTO taken, start/end times, and break minutes."
             ),
             inputSchema={
                 "type": "object",
                 "properties": {
                     "employee_id": {
                         "type": "string",
-                        "description": "The Employee ID (e.g., E1001). Leave empty to list all time records.",
+                        "description": "The Employee ID (e.g., E1001). Leave empty to list all time-off records.",
                     }
                 },
             },
@@ -87,7 +90,8 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="get_open_positions",
             description=(
-                "Get open job requisitions from SAP SuccessFactors. "
+                "Get open job requisitions and available positions from SAP SuccessFactors. "
+                "Use this when asked about open roles, job openings, hiring, vacancies, or recruitment. "
                 "Supports filtering by status (Open/Closed) and department."
             ),
             inputSchema={
@@ -138,7 +142,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 return [TextContent(type="text", text="Error: role parameter is required.")]
             data = await get_users_by_role(role=role)
 
-        elif name == "get_employee_time_records":
+        elif name == "get_pto_balance":
             data = await get_employee_time(employee_id=arguments.get("employee_id"))
 
         elif name == "get_open_positions":
@@ -201,7 +205,7 @@ if __name__ == "__main__":
     print("Available tools:")
     print("  - get_employee_profile")
     print("  - get_employees_by_role")
-    print("  - get_employee_time_records")
+    print("  - get_pto_balance")
     print("  - get_open_positions")
     print("  - get_position_details")
     print("=" * 60)
