@@ -73,9 +73,9 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="get_pto_balance",
             description=(
-                "Get an employee's PTO balance, vacation days, and time-off records from SAP SuccessFactors. "
-                "Use this when asked about PTO, leave balance, vacation days, time off, or absence. "
-                "Returns hours worked, PTO taken, start/end times, and break minutes."
+                "Get an employee's PTO balance, remaining vacation days, and time-off records from SAP SuccessFactors. "
+                "Use this when asked about PTO, leave balance, remaining vacation days, time off, or absence. "
+                "Returns annual PTO entitlement, days used, remaining days, hours worked, and attendance details."
             ),
             inputSchema={
                 "type": "object",
